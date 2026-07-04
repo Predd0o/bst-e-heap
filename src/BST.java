@@ -1,5 +1,5 @@
 import java.util.*;                                                       // importa todas as classes do pacote util (Deque, LinkedList, etc.)
-
+//implementaçaão da BST
 public class BST {
     private Node root;                                                     // referência para a raiz da árvore
 
