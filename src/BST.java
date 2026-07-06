@@ -130,10 +130,37 @@ public class BST {
         else return min(node.left);                                         // senão continua descendo
     }
 
-    public Node max(Node node){                                            // máximo iterativo a partir de um nó dado
-        if (isEmpty()) return null;                                         // se árvore vazia retorna null
-        while (node.right != null) node = node.right;                       // desce sempre à direita
-        return node;                                                        // nó mais à direita
+    public Node max(){
+        if (isEmpty()) return null;                                         // se vazia -> null
+        return max(this.root);                                              // chama versão que recebe nó
+    }
+
+    private Node max(Node node){                                           // máximo recursivo: desce sempre à direita
+        if (node == null) return null;                                      // se nó nulo retorna null
+        if (node.right == null) return node;                                // se não há filho direito, este é o máximo
+        else return max(node.right);                                         // senão continua descendo recursivamente à direita
+    }
+
+    public int countNodes(){                                               // retorna o número de nós na árvore
+        return countNodes(this.root);
+    }
+
+    private int countNodes(Node node){                                     // conta nós recursivamente
+        if (node == null) return 0;                                         // se nó nulo, não conta
+        return 1 + countNodes(node.left) + countNodes(node.right);          // 1 para este nó + filhos
+    }
+
+    public int countLessThan(int k){                                       // conta nós com valor menor que k
+        return countLessThan(this.root, k);
+    }
+
+    private int countLessThan(Node node, int k){                            // conta recursivamente nós cuja chave é menor que k
+        if (node == null) return 0;                                         // nó nulo não contribui
+        if (node.value < k) {                                               // este nó é menor que k
+            return 1 + countLessThan(node.left, k) + countLessThan(node.right, k);
+        } else {                                                            // este nó não é menor que k
+            return countLessThan(node.left, k);                            // apenas subárvore esquerda pode ter valores menores
+        }
     }
 
     public int height(){                                                   // altura da árvore (profundidade máxima). Convenção: árvore vazia = -1
@@ -163,7 +190,7 @@ public class BST {
             preOrder(node.right);                                           // percorre direita
         }
     }
-
+ 
     public void inOrder(){ inOrder(this.root); }                           // percorre em ordem (esquerda, raiz, direita)
     private void inOrder(Node node){
         if(node != null){
