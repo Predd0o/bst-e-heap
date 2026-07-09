@@ -163,6 +163,16 @@ public class BST {
         }
     }
 
+    public int sumLeaves(){                                                // soma os valores de todas as folhas da árvore
+        return sumLeaves(this.root);
+    }
+
+    private int sumLeaves(Node node){                                      // rotina recursiva para somar folhas
+        if (node == null) return 0;                                         // nada somado em subárvore vazia
+        if (node.isLeaf()) return node.value;                               // só soma o valor se for folha
+        return sumLeaves(node.left) + sumLeaves(node.right);                // soma das folhas das subárvores
+    }
+
     public int height(){                                                   // altura da árvore (profundidade máxima). Convenção: árvore vazia = -1
         return height(this.root);
     }
